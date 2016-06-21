@@ -1,6 +1,5 @@
 # Ailot
-React Native dictionary project, in-progress
+A React Native dictionary framework for the preservation of minority languages. This is a work in-progress.
 
 # Dependencies
-`react-native-simple-store`
-`react-native-ya-navigator`
+In its current form the Ailot Dictionary requires `react-native-vector-icons` and `react-native-ya-navigator`.
