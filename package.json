@@ -1,0 +1,15 @@
+{
+  "name": "Base",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react-native": "^0.21.0",
+    "react-native-audioplayer": "^0.2.0",
+    "react-native-form-generator": "^0.7.2",
+    "react-native-route-navigator": "^1.0.2",
+    "react-native-simple-modal": "^3.0.2"
+  },
+  "private": true
+}
