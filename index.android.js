@@ -26,11 +26,11 @@ import {
 } from 'react-native';
 import YANavigator from 'react-native-ya-navigator';
 
+import * as GLOBAL from './globals.js';
+
 /* Load the converted Toolbox data */
 var dictionary = require('./dictionary.json');
 var searchResults = dictionary;
-
-var pushedEntry = 'entry page';
 
 /* Navigation setup */
 class AhomDict extends React.Component {render() {return (<YANavigator initialRoute={{component: ListPage}}  navBarStyle={{backgroundColor: '#FBC02D'}} />)}}
@@ -43,7 +43,7 @@ class StartPage extends React.Component {
         delegate={this}
         style={styles.container}>
         <Text style={{fontWeight: "bold", fontSize: 18}}>Tai Ahom Dictionary</Text>
-        <Text style={styles.text} onPress={() => this.props.navigator.push({component: AboutPage, props: {leftBtnText: 'Back'}})}>
+        <Text style={styles.text} onPress = {() => this.props.navigator.push({component: AboutPage, props: {leftBtnText: 'Back'}})}>
           {'About the Ahom Dictionary'}
         </Text>
       </YANavigator.Scene>
@@ -90,18 +90,23 @@ class ListPage extends React.Component {
   renderItem(entry,index) {
 		return (
 			<View style={styles.row}>
-				<TouchableOpacity onPress={(entry) => this.props.navigator.push({component: EntryPage})}>
-				<Text>
+        <TouchableOpacity onPress = {this.goToEntry.bind(this,JSON.stringify(entry))}>
+				<Text style={styles.headword}>
 					{entry.lexeme}
           {entry.phonemic}
         </Text>
-        <Text>
+        <Text style={styles.snippet}>
           {entry.pos}
+          {' '}
           {entry.definition.english}
 				</Text>
 			</TouchableOpacity>
 		</View>
 		);
+	}
+  goToEntry(entry) {
+		GLOBAL.ENTRY = JSON.parse(entry),
+    this.props.navigator.push({component: EntryPage})
 	}
 }
 
@@ -127,7 +132,7 @@ class EntryPage extends React.Component {
       <YANavigator.Scene
         delegate={this}
         style={styles.container}>
-        <Text style={{fontWeight: "bold"}}>{pushedEntry}</Text>
+        <Text style={{fontWeight: "bold"}}>{GLOBAL.ENTRY.phonemic}</Text>
       </YANavigator.Scene>
     )
   }
@@ -139,13 +144,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    margin: 0,
+    padding: 0
   },
   row: {
 		flex: 1,
-		padding: 5,
+		padding: 0,
 		borderBottomWidth: 0.5,
     borderColor: "#dddddd"
-	}
+	},
+  headword: {
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  snippet: {
+    fontSize: 16
+  }
 });
 
 AppRegistry.registerComponent('AhomDict', () => AhomDict);
