@@ -100,7 +100,7 @@ class ListPage extends React.Component {
 		return (
 			<View style={styles.row}>
 				<TouchableOpacity onPress = {this.goToEntry.bind(this,JSON.stringify(entry))}>
-					<Text  style={styles.script}>{entry.lexeme}</Text>
+					<Text style={styles.script}>{entry.lexeme}</Text>
 					<Text style={styles.headword}>{entry.phonemic}</Text>
 					<Text style={styles.snippet}>
 						{entry.pos}
@@ -185,9 +185,10 @@ class EntryPage extends React.Component {
 			<YANavigator.Scene
 			delegate={this}
 			style={styles.container}>
-				<Text style={styles.script}>{GLOBAL.ENTRY.lexeme}</Text>
 				<Text style={styles.headword}>{GLOBAL.ENTRY.phonemic}</Text>
-				<Text>{GLOBAL.ENTRY.definition.english}</Text>
+				<Text style={styles.snippet}>{GLOBAL.ENTRY.definition.english}</Text>
+				<Text style={styles.script}>{GLOBAL.ENTRY.example.script}</Text>
+				<Text style={styles.snippet}>{GLOBAL.ENTRY.example.english}</Text>
 			</YANavigator.Scene>
 		)
 	}
@@ -221,15 +222,15 @@ const styles = StyleSheet.create({
 	},
 	headword: {
 		fontWeight: 'bold',
-		fontSize: 16,
+		fontSize: 18,
 		color: "#333333"
 	},
 	snippet: {
-		fontSize: 16,
+		fontSize: 18,
 		color: "#333333"
 	},
 	script: {
-		fontSize: 16,
+		fontSize: 18,
 		fontFamily: 'ahom',
 		color: "#333333"
 	},
