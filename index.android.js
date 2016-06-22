@@ -51,7 +51,7 @@ class StartPage extends React.Component {
   }
 }
 
-/* The initial list view */
+/* Initial list view */
 class ListPage extends React.Component {
   constructor(props) {
 		 super(props);
@@ -79,6 +79,7 @@ class ListPage extends React.Component {
         delegate={this}
         style={styles.container}>
           <View style={{flex:1}}>
+          <TextInput ref='search_term' placeholder='Search' onChangeText={(text) => this.setState({text})} onSubmitEditing={this.doSearching.bind(this,this.state.text)}/>
 					<ListView
 						dataSource={this.state.dataSource}
 						renderRow={this.renderItem.bind(this)}
@@ -101,6 +102,23 @@ class ListPage extends React.Component {
 			</TouchableOpacity>
 		</View>
 		);
+	}
+  doSearching(term) {
+		var numResults = 0;
+		var temparray = [];
+		//GLOBAL.RESULTS;
+		for (var i = 0; i < dictionary.length; i++){
+			if (dictionary[i].phonemic == term) {
+				temparray.push(dictionary[i]);
+			}
+		}
+		if (temparray.length > 0) {
+			this.setState({
+				dataSource: this.state.dataSource.cloneWithRows(temparray)
+			})
+		} else {
+			Alert.alert('not found');
+		}
 	}
   goToEntry(entry) {
 		GLOBAL.ENTRY = JSON.parse(entry),
@@ -148,9 +166,9 @@ const styles = StyleSheet.create({
     padding: 14
   },
   row: {
-		flex: 1,
-		padding: 0,
-		borderBottomWidth: 0.5,
+	flex: 1,
+	padding: 0,
+	borderBottomWidth: 0.5,
     borderColor: "#dddddd"
 	},
   headword: {
