@@ -112,6 +112,7 @@ class ListPage extends React.Component {
 		);
 	}
 	doSearching(term) {
+		term = term.toLowerCase();
 		var numResults = 0;
 		var temparray = [];
 		for (var i = 0; i < dictionary.length; i++){
