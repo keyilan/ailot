@@ -26,12 +26,19 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import YANavigator from 'react-native-ya-navigator';
+import Radio, {RadioButton} from 'react-native-simple-radio-button'
 
 import * as GLOBAL from './globals.js';
 
 /* Load the converted Toolbox data */
 var dictionary = require('./dictionary.json');
 var searchResults = dictionary;
+
+/* Radio button for selecting what field you're searching */
+var radio_props = [
+  {label: ' Ahom ', value: 0 },
+  {label: ' English ', value: 1 }
+];
 
 /* Navigation setup */
 class AhomDict extends React.Component {render() {return (
@@ -65,6 +72,7 @@ class ListPage extends React.Component {
 		 super(props);
 		 this.state = {
 				open: false,
+				field: 0,
 				uuid: '',
 				searchTerm: '',
 				dictionary: searchResults,
@@ -87,7 +95,16 @@ class ListPage extends React.Component {
 			delegate={this}
 			style={styles.container}>
 				<View style={{flex:1}}>
-					<TextInput style={styles.textinput} autoCapitalize="none" ref='search_term' placeholder='Search' onChangeText={(text) => this.setState({text})} onSubmitEditing={this.doSearching.bind(this,this.state.text)}/>
+					<TextInput style={styles.textinput} autoCapitalize="none" ref='search_term' placeholder='Search' onChangeText={(text) => this.setState({text})} onSubmitEditing={this.doSearching.bind(this,this.state.text,this.state.field)}/>
+					<Radio
+						radio_props={radio_props}
+						initial={0}
+						formHorizontal={true}
+						labelHorizontal={true}
+						buttonColor={'#444444'}
+						animation={true}
+						onPress={(value) => {this.setState({field:value})}}
+					/>
 					<ListView
 						dataSource={this.state.dataSource}
 						renderRow={this.renderItem.bind(this)}
@@ -111,12 +128,16 @@ class ListPage extends React.Component {
 			</View>
 		);
 	}
-	doSearching(term) {
+	doSearching(term,field) {
 		term = term.toLowerCase();
 		var numResults = 0;
 		var temparray = [];
 		for (var i = 0; i < dictionary.length; i++){
-		var line = dictionary[i].definition.english;
+		if (field == 0) {
+			var line = dictionary[i].phonemic;
+		} else {
+			var line = dictionary[i].definition.english;
+		}
 		newterm = new RegExp(term, 'g');
 			if (line.match(newterm)) {
 				temparray.push(dictionary[i]);
