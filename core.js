@@ -87,7 +87,7 @@ class ListPage extends React.Component {
 			delegate={this}
 			style={styles.container}>
 				<View style={{flex:1}}>
-					<TextInput autoCapitalize="none" ref='search_term' placeholder='Search' onChangeText={(text) => this.setState({text})} onSubmitEditing={this.doSearching.bind(this,this.state.text)}/>
+					<TextInput style={styles.textinput} autoCapitalize="none" ref='search_term' placeholder='Search' onChangeText={(text) => this.setState({text})} onSubmitEditing={this.doSearching.bind(this,this.state.text)}/>
 					<ListView
 						dataSource={this.state.dataSource}
 						renderRow={this.renderItem.bind(this)}
@@ -242,6 +242,9 @@ const styles = StyleSheet.create({
 		color: '#fff',
 		fontSize: 20,
 		fontFamily: 'ahom'
+	},
+	textinput: {
+		height: 46,
 	}
 });
 
