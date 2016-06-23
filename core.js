@@ -9,7 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 /* Basis setup */
-import React, { Component } from 'react';
+import React, { Component,PropTypes } from 'react';
 import {
 	AppRegistry,
 	StyleSheet,
@@ -44,7 +44,7 @@ var radio_props = [
 class AhomDict extends React.Component {render() {return (
 	<YANavigator initialRoute={{component: ListPage}} 
 	navBarStyle={{backgroundColor: '#F85F57'}} 
-	navBarBackBtn={{textStyle: {color: '#fff'}}}/>
+	navBarBackBtn={{textStyle: {color: '#B31D22'}}}/>
 )}}
 
 /* The screen that gets seen first */
@@ -55,7 +55,7 @@ class StartPage extends React.Component {
 			delegate={this}
 			style={styles.container}>
 				<Text style={{fontWeight: "bold", fontSize: 18}}>Tai Ahom Dictionary</Text>
-				<Text style={styles.text} onPress = {() => this.props.navigator.push({component: AboutPage})}>
+				<Text style={styles.text} onPress={() => this.props.navigator.push({component: AboutPage})}>
 				{'About the Ahom Dictionary'}
 				</Text>
 			</YANavigator.Scene>
@@ -67,6 +67,9 @@ class StartPage extends React.Component {
 class ListPage extends React.Component {
 	renderTitle() {
 		return <Text>Title</Text>;
+	}
+	onNavBarLeftPartPress() {
+		this.props.navigator.push({component: AboutPage});
 	}
 	constructor(props) {
 		 super(props);
@@ -151,11 +154,14 @@ class ListPage extends React.Component {
 			Alert.alert('not found');
 		}
 	}
+	
   goToEntry(entry) {
 		GLOBAL.ENTRY = JSON.parse(entry),
-    this.props.navigator.push({component: EntryPage,props:{backBtnText: 'Back',}})
+    	this.props.navigator.push({component: EntryPage,props:{backBtnText: 'Back',}})
 	}
+
 	static navigationDelegate = {
+		id: 'ListPage',
 		renderTitle() {
 			return (
 				<View>
@@ -164,23 +170,27 @@ class ListPage extends React.Component {
 					</Text>
 				</View>
 			)
+		},
+		renderNavBarLeftPart() {
+			return menuButton;
 		}
 	}
 }
 
-class View2NavBarTitle extends React.Component {
-	constructor(props) {
-			super(props);
-			this.state = {
-				text: props.text,
-			}
-		}
-		render() {
-			return (
-				<Text style={{fontSize: 18, color: '#fff'}}>AhomDict</Text>
-			)
-	}
+class menuButton extends React.Component {
+  render() {
+    return (
+      <TouchableOpacity
+        onPress={this.props.onPress}>
+       <Icon name="menu" size={30} color="#B31D22"/>
+      </TouchableOpacity>
+    )
+  }
+  static propTypes = {
+    onPress: PropTypes.func,
+  }
 }
+
 
 /* About page with basic information */
 class AboutPage extends React.Component {
@@ -189,14 +199,32 @@ class AboutPage extends React.Component {
 			<YANavigator.Scene
 			delegate={this}
 			style={styles.container}>
-				<Text style={{fontWeight: "bold"}}>AhomDict version 0.1.0</Text>
-				<Text>Data collection & organisation by Poppy Gogoi</Text>
-				<Text>Application development by Kellen Parker van Dam</Text>
-        <Text>(c) 2016 Phonemica</Text>
-        <Text>phonemica.net</Text>
+				<Text> </Text>
+				<Text style={{fontSize: 16, fontWeight: "bold"}}>AhomDict version 0.1.0</Text>
+				<Text> </Text>
+				<Text style={{fontSize: 16, fontWeight: "bold"}}>Data collection & organisation</Text>
+				<Text style={{fontSize: 16}}>Poppy Gogoi</Text>
+				<Text> </Text>
+				<Text style={{fontSize: 16, fontWeight: "bold"}}>Application development</Text>
+				<Text style={{fontSize: 16}}>Kellen Parker van Dam</Text>
+				<Text> </Text>
+				<Text style={{fontSize: 16}}>(c) 2016 Phonemica</Text>
+				<Text style={{fontSize: 16}}>phonemica.net</Text>
 			</YANavigator.Scene>
 		)
 	}
+	static navigationDelegate = {
+    id: 'AboutPage',
+	renderTitle() {
+		return (
+			<View>
+				<Text style={styles.title}>
+					{'About'}
+				</Text>
+			</View>
+		)
+	},
+  }
 }
 
 /* Individual Entries */
