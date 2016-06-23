@@ -36,7 +36,7 @@ var searchResults = dictionary;
 /* Navigation setup */
 class AhomDict extends React.Component {render() {return (
 	<YANavigator initialRoute={{component: ListPage}} 
-	navBarStyle={{backgroundColor: '#FBC02D'}} 
+	navBarStyle={{backgroundColor: '#F85F57'}} 
 	navBarBackBtn={{textStyle: {color: '#fff'}}}/>
 )}}
 
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'flex-start',
 		alignItems: 'flex-start',
-		backgroundColor: '#F5FCFF',
+		backgroundColor: '#FDFAF9',
 		margin: 0,
 		padding: 14
 	},
@@ -223,16 +223,16 @@ const styles = StyleSheet.create({
 	headword: {
 		fontWeight: 'bold',
 		fontSize: 18,
-		color: "#333333"
+		color: "#444444"
 	},
 	snippet: {
 		fontSize: 18,
-		color: "#333333"
+		color: "#444444"
 	},
 	script: {
 		fontSize: 18,
 		fontFamily: 'ahom',
-		color: "#333333"
+		color: "#444444"
 	},
 	title: {
 		color: '#fff',
