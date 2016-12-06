@@ -41,9 +41,9 @@ var radio_props = [
 ];
 
 /* Navigation setup */
-class AhomDict extends React.Component {render() {return (
-	<YANavigator initialRoute={{component: ListPage}} 
-	navBarStyle={{backgroundColor: '#F85F57'}} 
+class AilotDict extends React.Component {render() {return (
+	<YANavigator initialRoute={{component: ListPage}}
+	navBarStyle={{backgroundColor: '#F85F57'}}
 	navBarBackBtn={{textStyle: {color: '#B31D22'}}}/>
 )}}
 
@@ -54,9 +54,9 @@ class StartPage extends React.Component {
 			<YANavigator.Scene
 			delegate={this}
 			style={styles.container}>
-				<Text style={{fontWeight: "bold", fontSize: 18}}>Tai Ahom Dictionary</Text>
+				<Text style={{fontWeight: "bold", fontSize: 18}}>Dictionary</Text>
 				<Text style={styles.text} onPress={() => this.props.navigator.push({component: AboutPage})}>
-				{'About the Ahom Dictionary'}
+				{'About the Dictionary'}
 				</Text>
 			</YANavigator.Scene>
 		)
@@ -154,7 +154,7 @@ class ListPage extends React.Component {
 			Alert.alert('not found');
 		}
 	}
-	
+
   goToEntry(entry) {
 		GLOBAL.ENTRY = JSON.parse(entry),
     	this.props.navigator.push({component: EntryPage,props:{backBtnText: 'Back',}})
@@ -166,7 +166,7 @@ class ListPage extends React.Component {
 			return (
 				<View>
 					<Text style={styles.title}>
-						{'Ahom Dictionary'}
+						{'Dictionary'}
 					</Text>
 				</View>
 			)
@@ -200,9 +200,9 @@ class AboutPage extends React.Component {
 			delegate={this}
 			style={styles.container}>
 				<Text> </Text>
-				<Text style={{fontSize: 16, fontWeight: "bold"}}>AhomDict version 0.1.0</Text>
+				<Text style={{fontSize: 16, fontWeight: "bold"}}>AilotDict version 0.1.0</Text>
 				<Text> </Text>
-				<Text style={{fontSize: 16, fontWeight: "bold"}}>Data collection & organisation</Text>
+				<Text style={{fontSize: 16, fontWeight: "bold"}}>Data curation & organisation</Text>
 				<Text style={{fontSize: 16}}>Poppy Gogoi</Text>
 				<Text> </Text>
 				<Text style={{fontSize: 16, fontWeight: "bold"}}>Application development</Text>
@@ -245,7 +245,7 @@ class EntryPage extends React.Component {
 		renderTitle() {
 			return (
 				<View>
-					<Text style={styles.titleahom}>
+					<Text style={styles.titlescript}>
 						{GLOBAL.ENTRY.lexeme}
 					</Text>
 				</View>
@@ -280,21 +280,21 @@ const styles = StyleSheet.create({
 	},
 	script: {
 		fontSize: 18,
-		fontFamily: 'ahom',
+		fontFamily: 'font',
 		color: "#444444"
 	},
 	title: {
 		color: '#fff',
 		fontSize: 20
 	},
-	titleahom: {
+	titlescript: {
 		color: '#fff',
 		fontSize: 20,
-		fontFamily: 'ahom'
+		fontFamily: 'font'
 	},
 	textinput: {
 		height: 46,
 	}
 });
 
-AppRegistry.registerComponent('AhomDict', () => AhomDict);
+AppRegistry.registerComponent('AilotDict', () => AilotDict);
