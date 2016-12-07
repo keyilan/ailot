@@ -1,11 +1,9 @@
 /*
-Copyright (c) 2016 Phonemica
+Copyright (c) 2016,柯禕藍 yhilan.ko@gmail.com
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
 /* Basis setup */
@@ -23,6 +21,7 @@ import {
 	ScrollView,
 	Alert,
 	Image,
+	Linking
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import YANavigator from 'react-native-ya-navigator';
@@ -30,21 +29,28 @@ import Radio, {RadioButton} from 'react-native-simple-radio-button'
 
 import * as GLOBAL from './globals.js';
 
+const dictName = "PhakeDict";
+const dictVer = "0.1.0";
+const langName = "Phake";
+const dictCurator = "Ailot Hailowng";
+
+const styles = require('./styles');
+
 /* Load the converted Toolbox data */
 var dictionary = require('./dictionary.json');
 var searchResults = dictionary;
 
 /* Radio button for selecting what field you're searching */
 var radio_props = [
-  {label: ' Ahom ', value: 0 },
+  {label: ' '+langName+' ', value: 0 },
   {label: ' English ', value: 1 }
 ];
 
 /* Navigation setup */
 class AilotDict extends React.Component {render() {return (
 	<YANavigator initialRoute={{component: ListPage}}
-	navBarStyle={{backgroundColor: '#F85F57'}}
-	navBarBackBtn={{textStyle: {color: '#B31D22'}}}/>
+	navBarStyle={{backgroundColor: '#6B3851'}}
+	navBarBackBtn={{textStyle: {color: '#FDFDFD'}}}/>
 )}}
 
 /* The screen that gets seen first */
@@ -54,9 +60,9 @@ class StartPage extends React.Component {
 			<YANavigator.Scene
 			delegate={this}
 			style={styles.container}>
-				<Text style={{fontWeight: "bold", fontSize: 18}}>Dictionary</Text>
+				<Text style={{fontWeight: "bold", fontSize: 18}}>{dictName}</Text>
 				<Text style={styles.text} onPress={() => this.props.navigator.push({component: AboutPage})}>
-				{'About the Dictionary'}
+				{'About ' + dictName}
 				</Text>
 			</YANavigator.Scene>
 		)
@@ -117,15 +123,23 @@ class ListPage extends React.Component {
 		)
 	}
 	renderItem(entry,index) {
+		let theDefinition = entry.definition;
+		if (!theDefinition) {theDefinition = "missing"} else {
+			if (!theDefinition['english']) {
+				theDefinition = "missing"
+			} else {
+				theDefinition = theDefinition['english']
+			}
+		}
 		return (
 			<View style={styles.row}>
 				<TouchableOpacity onPress = {this.goToEntry.bind(this,JSON.stringify(entry))}>
 					<Text style={styles.script}>{entry.lexeme}</Text>
 					<Text style={styles.headword}>{entry.phonemic}</Text>
 					<Text style={styles.snippet}>
-						{entry.pos}
+						{entry.pos ? entry.pos : ''}
 						{' '}
-						{entry.definition.english}
+						{theDefinition}
 					</Text>
 				</TouchableOpacity>
 			</View>
@@ -157,7 +171,7 @@ class ListPage extends React.Component {
 
   goToEntry(entry) {
 		GLOBAL.ENTRY = JSON.parse(entry),
-    	this.props.navigator.push({component: EntryPage,props:{backBtnText: 'Back',}})
+		this.props.navigator.push({component: EntryPage,props:{backBtnText: 'Back',}})
 	}
 
 	static navigationDelegate = {
@@ -166,7 +180,7 @@ class ListPage extends React.Component {
 			return (
 				<View>
 					<Text style={styles.title}>
-						{'Dictionary'}
+						{dictName}
 					</Text>
 				</View>
 			)
@@ -178,19 +192,45 @@ class ListPage extends React.Component {
 }
 
 class menuButton extends React.Component {
-  render() {
-    return (
-      <TouchableOpacity
-        onPress={this.props.onPress}>
-       <Icon name="menu" size={30} color="#B31D22"/>
-      </TouchableOpacity>
-    )
-  }
-  static propTypes = {
-    onPress: PropTypes.func,
-  }
+	render() {
+		return (
+		<TouchableOpacity
+		onPress={this.props.onPress}>
+		<Icon name="menu" size={30} color="#FDFDFD"/>
+		</TouchableOpacity>
+		)
+	}
+	static propTypes = {
+		onPress: PropTypes.func,
+	}
 }
 
+class OpenURLButton extends React.Component {
+	static propTypes = {
+		url: React.PropTypes.string,
+	};
+
+	handleClick = () => {
+		Linking.canOpenURL(this.props.url).then(supported => {
+			if (supported) {
+				Linking.openURL(this.props.url);
+			} else {
+			console.log('Don\'t know how to open URI: ' + this.props.url);
+			}
+		});
+	};
+
+	render() {
+		return (
+			<TouchableOpacity
+			onPress={this.handleClick}>
+			<View style={styles.button}>
+			<Text style={styles.text}>{this.props.url}</Text>
+			</View>
+			</TouchableOpacity>
+		);
+	}
+}
 
 /* About page with basic information */
 class AboutPage extends React.Component {
@@ -200,26 +240,29 @@ class AboutPage extends React.Component {
 			delegate={this}
 			style={styles.container}>
 				<Text> </Text>
-				<Text style={{fontSize: 16, fontWeight: "bold"}}>AilotDict version 0.1.0</Text>
+				<Text style={{fontSize: 16, fontWeight: "bold"}}>{dictName} ver {dictVer}</Text>
 				<Text> </Text>
 				<Text style={{fontSize: 16, fontWeight: "bold"}}>Data curation & organisation</Text>
-				<Text style={{fontSize: 16}}>Poppy Gogoi</Text>
+				<Text style={{fontSize: 16}}>{dictCurator}</Text>
+				<Text> </Text>
+				<Text style={{fontSize: 16, fontWeight: "bold"}}>Project supervision</Text>
+				<Text style={{fontSize: 16}}>Stephen Morey</Text>
 				<Text> </Text>
 				<Text style={{fontSize: 16, fontWeight: "bold"}}>Application development</Text>
 				<Text style={{fontSize: 16}}>Kellen Parker van Dam</Text>
 				<Text> </Text>
-				<Text style={{fontSize: 16}}>(c) 2016 Phonemica</Text>
-				<Text style={{fontSize: 16}}>phonemica.net</Text>
+				<Text style={{fontSize: 16}}>© 2016 Phonemica</Text>
+				<OpenURLButton url={'https://www.phonemica.net'} />
 			</YANavigator.Scene>
 		)
 	}
 	static navigationDelegate = {
-    id: 'AboutPage',
+	id: 'AboutPage',
 	renderTitle() {
 		return (
 			<View>
 				<Text style={styles.title}>
-					{'About'}
+					{'About '+dictName}
 				</Text>
 			</View>
 		)
@@ -253,48 +296,5 @@ class EntryPage extends React.Component {
 		}
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'flex-start',
-		alignItems: 'flex-start',
-		backgroundColor: '#FDFAF9',
-		margin: 0,
-		padding: 14
-	},
-	row: {
-		flex: 1,
-		padding: 0,
-		borderBottomWidth: 0.5,
-		borderColor: "#dddddd"
-	},
-	headword: {
-		fontWeight: 'bold',
-		fontSize: 18,
-		color: "#444444"
-	},
-	snippet: {
-		fontSize: 18,
-		color: "#444444"
-	},
-	script: {
-		fontSize: 18,
-		fontFamily: 'font',
-		color: "#444444"
-	},
-	title: {
-		color: '#fff',
-		fontSize: 20
-	},
-	titlescript: {
-		color: '#fff',
-		fontSize: 20,
-		fontFamily: 'font'
-	},
-	textinput: {
-		height: 46,
-	}
-});
 
 AppRegistry.registerComponent('AilotDict', () => AilotDict);
