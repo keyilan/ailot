@@ -36,6 +36,11 @@ const dictCurator = "Ailot Hailowng";
 
 const styles = require('./styles');
 
+var Sound = require('react-native-sound');
+
+let audioFile;
+let audioStatus = false;
+
 /* Load the converted Toolbox data */
 var dictionary = require('./dictionary.json');
 var searchResults = dictionary;
@@ -124,9 +129,11 @@ class ListPage extends React.Component {
 	}
 	renderItem(entry,index) {
 		let theDefinition = entry.definition;
-		if (!theDefinition) {theDefinition = "missing"} else {
+		if (!theDefinition) {
+			theDefinition = "(missing definition)"
+		} else {
 			if (!theDefinition['english']) {
-				theDefinition = "missing"
+				theDefinition = "(missing definition)"
 			} else {
 				theDefinition = theDefinition['english']
 			}
@@ -134,8 +141,8 @@ class ListPage extends React.Component {
 		return (
 			<View style={styles.row}>
 				<TouchableOpacity onPress = {this.goToEntry.bind(this,JSON.stringify(entry))}>
-					<Text style={styles.script}>{entry.lexeme}</Text>
-					<Text style={styles.headword}>{entry.phonemic}</Text>
+					<Text style={styles.script}>{entry.lexeme ? entry.lexeme : "???"}</Text>
+					<Text style={styles.headword}>{entry.phonemic ? entry.phonemic : "(missing phonemic)"}</Text>
 					<Text style={styles.snippet}>
 						{entry.pos ? entry.pos : ''}
 						{' '}
@@ -169,9 +176,9 @@ class ListPage extends React.Component {
 		}
 	}
 
-  goToEntry(entry) {
+	goToEntry(entry) {
 		GLOBAL.ENTRY = JSON.parse(entry),
-		this.props.navigator.push({component: EntryPage,props:{backBtnText: 'Back',}})
+		this.props.navigator.push({component: EntryPage, props:{backBtnText: 'Back',}})
 	}
 
 	static navigationDelegate = {
@@ -194,9 +201,8 @@ class ListPage extends React.Component {
 class menuButton extends React.Component {
 	render() {
 		return (
-		<TouchableOpacity
-		onPress={this.props.onPress}>
-		<Icon name="menu" size={30} color="#FDFDFD"/>
+		<TouchableOpacity onPress={this.props.onPress}>
+			<Icon name="menu" size={30} color="#FDFDFD"/>
 		</TouchableOpacity>
 		)
 	}
@@ -266,25 +272,45 @@ class AboutPage extends React.Component {
 				</Text>
 			</View>
 		)
-	},
+	}
   }
+}
+
+class Playable extends React.Component {
+
+}
+
+class Recording extends React.Component {
+	render() {
+		return(
+			<TouchableOpacity onPress={() => audioFile.play()}>
+				<Text><Icon name='volume-up' size={24} style={{color: '#FDFDFD', paddingRight: 10}}/> </Text>
+			</TouchableOpacity>
+		)
+	}
 }
 
 /* Individual Entries */
 class EntryPage extends React.Component {
 	render() {
+		audioFile = new Sound(GLOBAL.ENTRY.sound, Sound.MAIN_BUNDLE, (error) => {
+			if (error != null) {
+				audioStatus = false;
+			} else {
+				audioStatus = true;
+			}
+		})
 		return (
-			<YANavigator.Scene
-			delegate={this}
-			style={styles.container}>
-				<Text style={styles.headword}>{GLOBAL.ENTRY.phonemic}</Text>
-				<Text style={styles.snippet}>{GLOBAL.ENTRY.definition.english}</Text>
-				<Text style={styles.script}>{GLOBAL.ENTRY.example.script}</Text>
-				<Text style={styles.snippet}>{GLOBAL.ENTRY.example.english}</Text>
+			<YANavigator.Scene delegate={this} style={styles.container}>
+				<Text style={styles.headword}>{GLOBAL.ENTRY.phonemic ? GLOBAL.ENTRY.phonemic : "(missing phonemic)"}</Text>
+				<Text style={styles.snippet}>{GLOBAL.ENTRY.definition.english ? GLOBAL.ENTRY.definition.english : "(missing definition)"}</Text>
+				<Text style={styles.script}>{GLOBAL.ENTRY.example.script ? GLOBAL.ENTRY.example.script : ""}</Text>
+				<Text style={styles.snippet}>{GLOBAL.ENTRY.example.english ? GLOBAL.ENTRY.example.english : ""}</Text>
 			</YANavigator.Scene>
 		)
 	}
 	static navigationDelegate = {
+		id: 'SingleEntry',
 		renderTitle() {
 			return (
 				<View>
@@ -292,6 +318,11 @@ class EntryPage extends React.Component {
 						{GLOBAL.ENTRY.lexeme}
 					</Text>
 				</View>
+			)
+		},
+		renderNavBarRightPart() {
+			return (
+				<Recording/>
 			)
 		}
 	}
