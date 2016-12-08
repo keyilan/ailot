@@ -5,4 +5,4 @@ The goal of the Ailot dictionary project is to provide a free and easy to use to
 
 ## Screenshots
 
-![](https://phonemica.net/github/ailot_screen.jpg)
+![](http://phonemica.net/github/ailot_screen.jpg)
