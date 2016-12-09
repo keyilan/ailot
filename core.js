@@ -30,7 +30,7 @@ import Radio, {RadioButton} from 'react-native-simple-radio-button'
 import * as GLOBAL from './globals.js';
 
 const dictName = "PhakeDict";
-const dictVer = "0.1.0";
+const dictVer = "0.2.5";
 const langName = "Phake";
 const dictCurator = "Ailot Hailowng";
 
@@ -255,7 +255,8 @@ class AboutPage extends React.Component {
 				<Text style={{fontSize: 16}}>Stephen Morey</Text>
 				<Text> </Text>
 				<Text style={{fontSize: 16, fontWeight: "bold"}}>Application development</Text>
-				<Text style={{fontSize: 16}}>Kellen Parker van Dam</Text>
+				<Text style={{fontSize: 16}}>柯禕藍 Kellen Parker van Dam</Text>
+				<Text style={{fontSize: 16}}>乡音苑 Phonemica</Text>
 				<Text> </Text>
 				<Text style={{fontSize: 16}}>© 2016 Phonemica</Text>
 				<OpenURLButton url={'https://www.phonemica.net'} />
