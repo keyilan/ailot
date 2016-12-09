@@ -302,7 +302,7 @@ class EntryPage extends React.Component {
 		})
 		return (
 			<YANavigator.Scene delegate={this} style={styles.container}>
-				<Text style={styles.headword}>{GLOBAL.ENTRY.phonemic ? GLOBAL.ENTRY.phonemic : "(missing phonemic)"}</Text>
+				<Text style={styles.phonemic}>{GLOBAL.ENTRY.phonemic ? GLOBAL.ENTRY.phonemic : "(missing phonemic)"}</Text>
 				<Text style={styles.snippet}>{GLOBAL.ENTRY.definition.english ? GLOBAL.ENTRY.definition.english : "(missing definition)"}</Text>
 				<Text style={styles.script}>{GLOBAL.ENTRY.example.script ? GLOBAL.ENTRY.example.script : ""}</Text>
 				<Text style={styles.snippet}>{GLOBAL.ENTRY.example.english ? GLOBAL.ENTRY.example.english : ""}</Text>
