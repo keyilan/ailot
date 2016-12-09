@@ -123,7 +123,7 @@ class ListPage extends React.Component {
 						dataSource={this.state.dataSource}
 						renderRow={this.renderItem.bind(this)}
 						removeClippedSubviews={false}
-						initialListSize={500}
+						initialListSize={1}
 					/>
 				</View>
 			</YANavigator.Scene>
@@ -160,9 +160,21 @@ class ListPage extends React.Component {
 		var temparray = [];
 		for (var i = 0; i < dictionary.length; i++){
 		if (field == 0) {
-			var line = dictionary[i].phonemic;
+			if (dictionary[i].phonemic) {
+				var line = dictionary[i].phonemic;
+			} else {
+				var line = "undefined";
+			}
 		} else {
-			var line = dictionary[i].definition.english;
+			if (dictionary[i].definition) {
+				if (dictionary[i].definition.english) {
+					var line = dictionary[i].definition.english;
+				} else {
+					var line = "undefined";
+				}
+			} else {
+				var line = "undefined";
+			}
 		}
 		newterm = new RegExp(term, 'g');
 			if (line.match(newterm)) {
