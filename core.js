@@ -122,6 +122,8 @@ class ListPage extends React.Component {
 					<ListView
 						dataSource={this.state.dataSource}
 						renderRow={this.renderItem.bind(this)}
+						removeClippedSubviews={false}
+						initialListSize={500}
 					/>
 				</View>
 			</YANavigator.Scene>
