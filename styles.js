@@ -28,6 +28,14 @@ module.exports = StyleSheet.create({
 		color: "#444444",
 		fontFamily: 'banchob'
 	},
+	phonemic: {
+		position: 'relative',
+		top: 10,
+		paddingBottom: 10,
+		fontSize: 22,
+		color: "#444444",
+		fontFamily: 'banchob'
+	},
 	snippet: {
 		fontSize: 18,
 		color: "#444444"
