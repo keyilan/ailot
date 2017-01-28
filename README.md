@@ -9,6 +9,4 @@ For an example, see the [Jingpo dictionary](https://github.com/phonemica/jingpo/
 
 ## Screenshots
 
-![](http://phonemica.net/github/ailot_screen.jpg)
-
 ![](http://phonemica.net/github/jingpo20170126.jpg)
