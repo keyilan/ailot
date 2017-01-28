@@ -5,7 +5,7 @@ The goal of the Ailot dictionary project is to provide a free and easy to use to
 
 Currently we are testing two verisons of the app, one for [Tai Ahom](https://en.wikipedia.org/wiki/Ahom_language) and one for [Tai Phake](https://en.wikipedia.org/wiki/Tai_Phake_language). Afterfurther testing of the app itself and the [Toolbox converter](https://github.com/phonemica/ailot_converter), we will start testing with other languages. Since each language variety has its own unique set of demands, it's worth testing over a wide range to work out what problems may come up.
 
-For an example, see the [Jingpo dictionary](https://github.com/phonemica/jingpo/) made for the Singpho Language & Cultural Development Society, which is based on a version of the Ailot dictionary.
+For an example, see our [Jingpo dictionary app](https://github.com/phonemica/jingpo/).
 
 ## Screenshots
 
