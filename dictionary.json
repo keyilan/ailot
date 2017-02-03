@@ -5,6 +5,11 @@
 // possibile values. Sound and image files are included without filetype suffixes. These
 // are to be handled later by the application itself based on the needs of the operating system.
 
+// The structure is intended to facilitate monolingual and multi-lingual dictionaries using
+// a single data source. We're using this primarily for creation of dictionaries for under-
+// served communities and languages, and thus need to minimise the amount of work needed
+// for expansion and manipulation.
+
 [{
     "gloss": {
         "english": "mueang",
