@@ -1,3 +1,10 @@
+// This is an example of the common dictionary format used in the Ailot app and all
+// related applications, including desktop software for managing dictionary data.
+// Headwords are taken from the gloss for the target language. Examples match definitions
+// for that language by sharing the same key. Part of speech is an array with multiple
+// possibile values. Sound and image files are included without filetype suffixes. These
+// are to be handled later by the application itself based on the needs of the operating system.
+
 [{
     "gloss": {
         "english": "mueang",
@@ -30,6 +37,16 @@
             "EðÉä<Ç BE, EðÉä<Ç, VÉÉä EðÉä<*"
         ]
     },
+    "example": {
+        "english": [
+            "Mong Hpayak was once a mueang in what is today Myanmar",
+            "Si Kefa (思可法) was the first ruler of Mong Mao"
+        ],
+        "mandarin": [
+            "",
+            "思可法是孟卯第一个国王。"
+        ],
+    }
     "pos": ["noun"],
     "image": "mueang",
     "sound": "mueang"
