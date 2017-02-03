@@ -1,0 +1,36 @@
+[{
+    "gloss": {
+        "english": "mueang",
+        "lao": "ເມືອງ",
+        "mandarin": "勐",
+        "shan": "မိူင်း",
+        "thai": "เมือง",
+        "vietnamese": "mường"
+    },
+    "phonemic": {
+        "english": "mɯaŋ",
+        "lao": "mɯaŋ˦",
+        "mandarin": "měng",
+        "shan": "məŋ˦",
+        "thai": "mɯaŋ˧",
+        "vietnamese": "mɨəŋ˨˩"
+    },
+    "definition": {
+        "english": [
+            "pre-modern semi-independent city-states or principalities in Indochina",
+            "a town having a defensive wall and a ruler with at least the Thai noble rank of khun"
+        ],
+        "mandarin": [
+            "早期泰国、寮国与缅甸撣邦与中國雲南西双版纳和印度阿薩姆的泰族自治城邦国家"
+        ],
+        "vietnamese": [
+            "là tên thời cận đại được dùng để chỉ một vùng lãnh thổ bán độc lập có ở vùng cư trú truyền thống của những dân tộc thuộc ngữ hệ Tai-Kadai"
+        ],
+        "hindi": [
+            "EðÉä<Ç BE, EðÉä<Ç, VÉÉä EðÉä<*"
+        ]
+    },
+    "pos": ["noun"],
+    "image": "mueang",
+    "sound": "mueang"
+}]
