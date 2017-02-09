@@ -5,14 +5,13 @@ The goal of the Ailot dictionary project is to provide a free and easy to use to
 
 Currently we are testing two verisons of the app, one for [Tai Ahom](https://en.wikipedia.org/wiki/Ahom_language) and one for [Tai Phake](https://en.wikipedia.org/wiki/Tai_Phake_language). Afterfurther testing of the app itself and the [Toolbox converter](https://github.com/phonemica/ailot_converter), we will start testing with other languages. Since each language variety has its own unique set of demands, it's worth testing over a wide range to work out what problems may come up.
 
-## Data format
-
-Both [Ichō](https://github.com/phonemica/icho) and [Ailot](https://github.com/phonemica/ailot) use a common JSON structure — also provided by [Metric](https://github.com/phonemica/metric), a Toolbox conversion utility — seen below. Additional languages need only need to be added to the appropriate nested objects to be called automatically where needed.
-
 ## Screenshots
 
 ![](http://phonemica.net/github/jingpo20170126.jpg)
 
+## Data format
+
+Both [Ichō](https://github.com/phonemica/icho) and [Ailot](https://github.com/phonemica/ailot) use a common JSON structure — also provided by [Metric](https://github.com/phonemica/metric), a Toolbox conversion utility — seen below. Additional languages need only need to be added to the appropriate nested objects to be called automatically where needed.
 
 ```json
 [{
