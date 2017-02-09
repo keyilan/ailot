@@ -9,6 +9,11 @@ Currently we are testing two verisons of the app, one for [Tai Ahom](https://en.
 
 Both [Ichō](https://github.com/phonemica/icho) and [Ailot](https://github.com/phonemica/ailot) use a common JSON structure — also provided by [Metric](https://github.com/phonemica/metric), a Toolbox conversion utility — seen below. Additional languages need only need to be added to the appropriate nested objects to be called automatically where needed.
 
+## Screenshots
+
+![](http://phonemica.net/github/jingpo20170126.jpg)
+
+
 ```json
 [{
     "gloss": {
@@ -42,11 +47,7 @@ Both [Ichō](https://github.com/phonemica/icho) and [Ailot](https://github.com/p
 }]
 ```
 
-## Screenshots
-
-![](http://phonemica.net/github/jingpo20170126.jpg)
-
-## Implementations
+## Apps build on Ailot
 
 The following are dictionary apps built on the Ailot project:
 
