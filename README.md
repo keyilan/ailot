@@ -15,18 +15,6 @@ Both [Ichō](https://github.com/phonemica/icho) and [Ailot](https://github.com/p
 
 ```json
 [{
-    "gloss": {
-        "english": "mueang",
-        "lao": "ເມືອງ",
-        "mandarin": "勐",
-        "shan": "မိူင်း",
-    },
-    "phonemic": {
-        "english": "mɯaŋ",
-        "lao": "mɯaŋ˦",
-        "mandarin": "měng",
-        "shan": "məŋ˦",
-    },
     "definition": {
         "english": [
             "pre-modern semi-independent city-states or principalities in Indochina",
@@ -40,8 +28,23 @@ Both [Ichō](https://github.com/phonemica/icho) and [Ailot](https://github.com/p
         "english": ["", ""],
         "mandarin": [""],
     },
+    "gloss": {
+        "english": "mueang",
+        "lao": "ເມືອງ",
+        "mandarin": "勐",
+        "shan": "မိူင်း",
+    },
+    "image": [
+        "mueang",
+        "mueang2"
+    ],
+    "phonemic": {
+        "english": "mɯaŋ",
+        "lao": "mɯaŋ˦",
+        "mandarin": "měng",
+        "shan": "məŋ˦",
+    },
     "pos": ["noun"],
-    "image": "mueang",
     "sound": "mueang"
 }]
 ```
