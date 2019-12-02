@@ -49,7 +49,7 @@ Both [Ichō](https://github.com/phonemica/icho) and [Ailot](https://github.com/p
 }]
 ```
 
-## Apps build on Ailot
+## Apps built on Ailot
 
 The following are dictionary apps built on the Ailot project:
 
